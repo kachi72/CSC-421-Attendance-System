@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Info</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: #4267B2;
+            color: white;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #29487d 3px solid;
+        }
+        header a {
+            color: #ffffff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+        header ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            overflow: hidden;
+        }
+        header li {
+            float: left;
+            display: inline;
+            padding: 0 20px 0 20px;
+        }
+        header #branding {
+            float: left;
+        }
+        header #branding h1 {
+            margin: 0;
+        }
+        header nav {
+            float: right;
+            margin-top: 10px;
+        }
+        .highlight, header .current a {
+            color: #dfe3ee;
+            font-weight: bold;
+        }
+        .dashboard-items {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .dashboard-item {
+            background: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            width: calc(50% - 20px);
+        }
+        .delete-btn {
+            background-color: #dc3545;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 15px;
+            transition: background-color 0.3s;
+        }
+
+        .delete-btn:hover {
+            background-color: #c82333;
+        }
+
+        /* Add this if you want a confirmation dialog */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 5px;
+            width: 50%;
+            text-align: center;
+        }
+
+        .modal-buttons {
+            margin-top: 20px;
+        }
+
+        .confirm-btn {
+            background-color: #dc3545;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+
+        .cancel-btn {
+            background-color: #6c757d;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="container">
+        <a class="navbar-brand" href="https://www.portal.augustineuniversity.edu.ng/" target="_blank">
+            AUGUSTINE UNIVERSITY ILARA-EPE STUDENT PORTAL
+        </a>
+        <h1><span class="highlight"> Student Information</span> </h1>
+
+    </div>
+</header>
+
+<div>
+    <a style="margin-left:500px" href = "/attendance"><h2> Back To Attendance </h2></a>
+
+</div>
+
+<div class="container">
+    <h2 style="text-align:center"><b>Welcome, {{student.name}}</b></h2>
+
+    <div class="dashboard-items">
+
+        <div class="dashboard-item">
+            <h3>{{student.name}}</h3>
+            <p>Faculty: {{student.faculty}}</p>
+            <p>Department: {{student.department}}</p>
+            <p>Student Number: {{student.studentNumber}}</p>
+            <p>Member Since: {{student.created}}</p>
+
+            <form method="POST" id="deleteForm">
+                {% csrf_token %}
+                <button type="button" class="delete-btn" onclick="confirmDelete()">Delete Student</button>
+            </form>
+        </div>
+    </div>
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <h3>Confirm Deletion</h3>
+            <p>Are you sure you want to delete this student record?</p>
+            <div class="modal-buttons">
+                <button class="confirm-btn" onclick="submitDelete()">Yes, Delete</button>
+                <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function confirmDelete() {
+        document.getElementById('deleteModal').style.display = 'block';
+    }
+
+    function closeModal() {
+        document.getElementById('deleteModal').style.display = 'none';
+    }
+
+    function submitDelete() {
+        document.getElementById('deleteForm').submit();
+    }
+
+    // Close modal if user clicks outside of it
+    window.onclick = function(event) {
+        var modal = document.getElementById('deleteModal');
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    }
+</script>
+</body>
+</html>

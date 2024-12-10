@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Table</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: #4267B2;
+            color: white;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #29487d 3px solid;
+        }
+        header a {
+            color: #ffffff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+        header ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            overflow: hidden;
+        }
+        header li {
+            float: left;
+            display: inline;
+            padding: 0 20px 0 20px;
+        }
+        header #branding {
+            float: left;
+        }
+        header #branding h1 {
+            margin: 0;
+        }
+        header nav {
+            float: right;
+            margin-top: 10px;
+        }
+        .highlight, header .current a {
+            color: #dfe3ee;
+            font-weight: bold;
+        }
+        .dashboard-items {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .dashboard-item {
+            background: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            width: calc(50% - 20px);
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="container">
+        <a class="navbar-brand" href="https://www.portal.augustineuniversity.edu.ng/" target="_blank">
+            AUGUSTINE UNIVERSITY ILARA-EPE STUDENT PORTAL
+        </a>
+            <h1><span class="highlight"> Student Attendance</span> Table</h1>
+
+    </div>
+</header>
+
+<div class="container">
+
+    <a href="/home"> Back to Home</a>
+    <a style="margin-left:500px" href="/register"> Register New Student</a>
+    <marquee direction="right"><h2><b>Welcome</b></h2></marquee>
+
+    <div class="dashboard-items">
+        {% for student in students %}
+
+        <div class="dashboard-item">
+            <h3><a href="/attendance/{{student.id}}">{{student.name}}</a></h3>
+            <p>Faculty: {{student.faculty}}</p>
+            <p>Department: {{student.department}}</p>
+            <p>Student Number: {{student.studentNumber}}</p>
+            <p>Member Since: {{student.created}}</p>
+        </div>
+
+        {% endfor %}
+
+    </div>
+</div>
+</body>
+</html>
